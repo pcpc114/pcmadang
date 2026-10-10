@@ -56,11 +56,11 @@ Node.js 22 이상에서 `npm start`를 실행하면 사용 가능한 포트가 �
 
 ## SEO 설정
 
-### pcmadang.com 배포 상태 — 2026-10-10
+### pcmadang.com 배포 상태 — 2026-10-11
 
 대표 운영 주소는 `https://pcmadang.com`입니다. 사용자는 도메인을 오렌지에서 구매했고 GitHub에 코드를 보관합니다. 2026-10-10 사용자가 기존 홈페이지·도메인 이메일을 사용하지 않는다고 확인하고, 먼저 공개한 뒤 실제 주소에서 SEO를 검사·수정하는 순서를 승인했습니다. 운영 정적 빌드를 Cloudflare `pcmadang` Worker에 배포하고 `pcmadang.com/*` 경로에 연결했습니다. 비회원 글쓰기 서버는 별도 후속 작업이며 이번 정적 배포가 공동 게시글 저장 기능을 제공하지는 않습니다. 기존 `.openai/hosting.json`은 이전 Sites 연결 이력으로 보존하며 이번 GitHub/Cloudflare 배포와 구분합니다.
 
-활성 버전은 `5790cf4e-1971-4e1b-a347-716e94e9ea0b`이며 트래픽 100%가 배정되었습니다. 배포 ID는 `0205bac4-7c0f-4156-a985-ada83bb942a0`, 생성 시각은 `2026-10-10T13:58:23.897Z`입니다. 이 배포 상태와 실제 방문자의 HTTPS 접속·SEO 검사 완료는 구분합니다.
+활성 버전은 `074f39a3-cea1-4cbd-8ca1-cb404a97cb9d`입니다. 2026-10-11 사용자 제공 Google 소유권 확인 태그를 운영 홈의 `<head>`에 추가하고, 공개 HTTPS 응답에서 토큰 일치와 대표 HTTP 검사 26개 통과를 확인했습니다. 태그는 공통 `layout.mjs`에 있어 재빌드 후에도 유지됩니다. Search Console의 확인 버튼 완료 및 사이트맵 제출은 별도로 확인해야 합니다. VPN 해제 이후 이 PC의 정상 접속도 확인됐습니다. 아래 2026-10-10 Lighthouse 점수는 태그 추가 전 빌드의 측정 이력이며 새 빌드의 전체 100점 증거를 뜻하지 않습니다.
 
 - `npm run build:production`: `dist-production`에 운영 파일 생성, `artifacts/seo-production`에 별도 검증 manifest 생성. localhost의 `dist`는 바꾸지 않습니다.
 - `npm run seo:check:production`: 운영 파일의 정적 SEO 검사. 실제 Lighthouse 점수를 뜻하지 않습니다.

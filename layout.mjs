@@ -25,6 +25,7 @@ export function createLayout({content, icon, esc, origin, indexable, auditPrevie
     return `<!doctype html>
 <html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+${pathname==='/'&&origin==='https://pcmadang.com'?'<meta name="google-site-verification" content="YEFF-IflH4vdnV6Uy3PNL96UAs5i0a8IOIxYt8EmboA" />':''}
 <title>${esc(fullTitle)}</title><meta name="description" content="${esc(description)}">
 <meta name="robots" content="${robots}"><meta name="theme-color" content="${page==='games'?'#0d111b':'#faf9f6'}">
 <link rel="canonical" href="${origin}${pathname}">
