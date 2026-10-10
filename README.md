@@ -66,7 +66,7 @@ Node.js 22 이상에서 `npm start`를 실행하면 사용 가능한 포트가 �
 - `npm run seo:release:production`: 운영 재빌드 후 Lighthouse 증거까지 확인합니다.
 - `npm run deploy`: 운영 빌드와 Lighthouse 증거 검사가 모두 통과한 경우에만 Wrangler 배포를 실행합니다. 직접 Wrangler를 호출해 필수 검사를 생략하지 않습니다.
 
-Cloudflare Workers 설정은 `wrangler.jsonc`입니다. 정적 파일 폴더는 `dist-production`, Worker 이름은 `pcmadang`입니다. `workers.dev`와 버전별 미리보기 URL을 비활성화했고, 계정·DNS를 확인하기 전까지 도메인 route를 등록하지 않았습니다. 파일이 없는 경로는 404로 응답하며 정적 페이지는 끝 슬래시 주소를 사용합니다. Cloudflare Git 연동 시 저장소의 이 파일과 package.json이 있는 폴더를 루트로 선택합니다. 빌드 명령은 `npm run build:production`, 배포 명령은 `npm run deploy`입니다. 원본 Lighthouse 보고서와 evidence.json을 검증 환경에 공급하기 전에는 배포 명령이 통과하지 않습니다.
+Cloudflare Workers 설정은 `wrangler.jsonc`입니다. 정적 파일 폴더는 `dist-production`, Worker 이름은 `pcmadang`입니다. `workers.dev`와 버전별 미리보기 URL은 비활성화했습니다. 2026-10-10 계정과 Cloudflare 도메인 활성화를 확인하여 계정 ID 및 `pcmadang.com` Custom Domain을 배포 설정에 명시했습니다. 이 설정 파일만으로 Worker나 DNS가 변경되지는 않습니다. 실제 배포 시 기존 루트 DNS를 Worker로 연결하므로, 기존 홈페이지·메일 사용 여부를 확인해야 합니다. `www` 리디렉션은 아직 설정하지 않았습니다. 파일이 없는 경로는 404로 응답하며 정적 페이지는 끝 슬래시 주소를 사용합니다. Cloudflare Git 연동 시 저장소의 이 파일과 package.json이 있는 폴더를 루트로 선택합니다. 빌드 명령은 `npm run build:production`, 배포 명령은 `npm run deploy`입니다. 원본 Lighthouse 보고서와 evidence.json을 검증 환경에 공급하기 전에는 배포 명령이 통과하지 않습니다.
 
 GitHub Actions는 빌드·테스트·정적 SEO 검사를 수행합니다. 이 워크플로의 성공은 공개 배포나 Lighthouse 100점 완료를 의미하지 않습니다. Cloudflare 계정 연결, pcmadang.com의 DNS/인증서 설정, Search Console 소유 확인은 별도의 실제 계정 단계입니다. 서버에서 반환한 DNS 값과 검색엔진 소유 확인 토큰을 사용하며 임의로 만들지 않습니다.
 

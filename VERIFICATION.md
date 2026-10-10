@@ -1,5 +1,12 @@
 # 로컬 검증 결과
 
+## pcmadang.com 네임서버 활성화 (2026-10-10)
+
+- 사용자가 등록 기관에서 네임서버를 변경했다고 알린 뒤, Cloudflare의 변경 확인 절차를 완료했습니다. 대시보드에서 `pcmadang.com`이 Cloudflare로 보호되는 활성 상태임을 확인했습니다.
+- Google 및 Cloudflare 공용 DNS 모두 `braelyn.ns.cloudflare.com`, `derek.ns.cloudflare.com`을 반환했습니다. OS 기본 조회의 이전 네임서버 응답은 공용 조회 결과와 달랐습니다.
+- 확인한 계정 ID와 루트 Custom Domain을 `wrangler.jsonc`에 명시했습니다. Wrangler `deploy --dry-run` 설정 검증을 통과했으며 실제 Worker 배포·도메인 연결·기존 DNS 프록시 수정은 하지 않았습니다. 샌드박스 밖 기본 로그 경로 쓰기 경고는 별도로 발생했습니다.
+- GitHub 소스 저장소는 비공개 `godqhr12312-maker/pcmadang`입니다. 네임서버 활성화는 사이트 배포나 SEO 점수 확인을 뜻하지 않습니다. 기존 홈페이지·메일 사용 여부, 실제 운영 빌드 Lighthouse 보고서, `www` 리디렉션, 공개 배포와 Search Console 등록은 남아 있습니다.
+
 ## pcmadang.com 운영 빌드 준비 (2026-10-10)
 
 - GitHub 코드 보관과 Cloudflare 호스팅으로 검색 노출용 정적 배포를 준비합니다. 대표 주소는 구매한 `https://pcmadang.com`입니다. 비회원 게시글 저장·로그인은 이번 단계에서 구현한 기능이 아닙니다.
