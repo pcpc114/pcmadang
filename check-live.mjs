@@ -162,7 +162,9 @@ export async function checkLive({fetchImpl = fetch, root = projectRoot} = {}) {
   await check('/robots.txt', {file: 'robots.txt', robots: true, contentType: /text\/plain/i});
   await check('/sitemap.xml', {file: 'sitemap.xml', sitemap: true, contentType: /(?:application|text)\/xml/i});
   await check(`/__pcmadang_missing_${crypto.randomUUID()}__/`, {status: 404});
-  await check('/games', {status: 308, location: '/games/'});
+  // Workers Static Assets documents 307 for force-trailing-slash HTML handling.
+  // https://developers.cloudflare.com/workers/static-assets/routing/advanced/html-handling/
+  await check('/games', {status: 307, location: '/games/'});
 
   for (const initial of ['http://pcmadang.com/games/?healthcheck=redirect', 'https://www.pcmadang.com/games/?healthcheck=redirect', 'http://www.pcmadang.com/games/?healthcheck=redirect']) {
     const expected = 'https://pcmadang.com/games/?healthcheck=redirect';
