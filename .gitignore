@@ -3,3 +3,14 @@ node_modules/
 *.tar.gz
 *.tar
 artifacts/
+dist/
+output/
+.openai/
+slot-catalogue-source.json
+slot-detail-source-sample.json
+dist-production/
+.wrangler/
+.env
+.env.*
+!.env.example
+*.log

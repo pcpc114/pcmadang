@@ -1,0 +1,59 @@
+/* One useful directory at the end of every page. */
+footer.site-footer{padding:42px 0 23px;background:#f1ede6;border-top:1px solid #d9d3c9;color:var(--ink)}
+.site-footer-content{display:grid;grid-template-columns:minmax(235px,1fr) minmax(0,3fr);gap:42px;align-items:start}
+.site-footer-brand{min-width:0}
+.site-footer-logo.brand{font-size:25px;font-weight:900;letter-spacing:-1.2px;gap:9px;min-height:38px}
+.site-footer-logo .brand-symbol{width:29px;height:29px;flex-shrink:0}
+.site-footer-intro{margin-top:15px;font-size:13px;line-height:1.9;color:#5e6058;word-break:keep-all}
+.site-footer-tools{display:flex;flex-wrap:wrap;gap:4px 17px;margin-top:13px}
+.site-footer-tools a,.site-footer-tools button{display:inline-flex;align-items:center;min-height:44px;padding:0;background:none;font-size:11px;color:#676a61;text-decoration:underline;text-underline-offset:3px}
+.site-footer-tools a:hover,.site-footer-tools button:hover{color:var(--accent)}
+.site-footer-navigation{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:23px;min-width:0}
+.site-footer-group{min-width:0}
+.site-footer-group h2{margin:5px 0 11px;font-size:13px;letter-spacing:-.25px;font-weight:800;line-height:1.6;color:var(--ink)}
+.site-footer-group ul{list-style:none;padding:0;margin:0}
+.site-footer-group li{margin:0;padding:0}
+.site-footer-group a{display:flex;align-items:center;min-height:36px;padding:6px 0;font-size:12px;line-height:1.7;color:#606259;word-break:keep-all;overflow-wrap:anywhere}
+.site-footer-group a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.site-footer-base{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-top:31px;padding-top:21px;border-top:1px solid #d9d3c9}
+.site-footer-copyright{flex-shrink:0;font-size:11px;color:#65675f;padding-top:2px}
+.site-footer-status{display:flex;align-items:flex-start;gap:11px;max-width:690px}
+.site-footer-status>span{display:inline-flex;align-items:center;min-height:23px;padding:1px 6px;border:1px solid #cbb7a8;border-radius:3px;color:#8f4532;font-size:10px;font-weight:700;white-space:nowrap}
+.site-footer-status p{color:#666960;font-size:11px;line-height:1.9;word-break:keep-all;overflow-wrap:anywhere}
+.site-footer a:focus-visible,.site-footer button:focus-visible{outline:3px solid #ba674e;outline-offset:4px;border-radius:2px}
+@media(max-width:1100px){
+  .site-footer-content{grid-template-columns:minmax(210px,1fr) minmax(0,3fr);gap:26px}
+  .site-footer-navigation{gap:15px}
+  .site-footer-logo.brand{font-size:23px}
+  .site-footer-group h2{font-size:12px}
+  .site-footer-group a{font-size:11px}
+}
+@media(max-width:850px){
+  footer.site-footer{padding-top:33px}
+  .site-footer-content{grid-template-columns:minmax(0,1fr);gap:24px}
+  .site-footer-brand{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:22px}
+  .site-footer-logo{grid-column:1}
+  .site-footer-intro{grid-column:1;margin-top:9px}
+  .site-footer-tools{grid-column:2;grid-row:1/3;align-content:start;margin-top:0}
+  .site-footer-navigation{gap:20px;padding-top:20px;border-top:1px solid #d9d3c9}
+  .site-footer-group h2{font-size:13px;margin-top:0}
+  .site-footer-group a{font-size:12px}
+  .site-footer-base{flex-direction:column;gap:14px;margin-top:25px}
+}
+@media(max-width:600px){
+  footer.site-footer{padding:29px 0 22px}
+  .site-footer-content{gap:20px}
+  .site-footer-brand{display:block}
+  .site-footer-logo.brand{font-size:23px;gap:8px;min-height:36px}
+  .site-footer-logo .brand-symbol{width:27px;height:27px}
+  .site-footer-intro{font-size:12px;margin-top:11px;line-height:1.85}
+  .site-footer-tools{margin-top:6px;gap:0 22px}
+  .site-footer-tools a,.site-footer-tools button{font-size:12px}
+  .site-footer-navigation{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 18px;padding-top:22px}
+  .site-footer-group h2{font-size:13px;margin-bottom:7px}
+  .site-footer-group a{min-height:44px;padding-block:8px;font-size:12px}
+  .site-footer-base{margin-top:24px;padding-top:18px;gap:14px}
+  .site-footer-status{display:block}
+  .site-footer-status>span{margin-bottom:7px}
+  .site-footer-status p{font-size:11px;line-height:1.85;word-break:normal}
+}

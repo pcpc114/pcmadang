@@ -3,5 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "scripts": { "build": "node build.mjs", "start": "node serve.mjs" }
+  "scripts": {
+    "build": "node build.mjs",
+    "build:production": "node production.mjs build",
+    "seo:check:production": "node production.mjs check",
+    "seo:verify:production": "node production.mjs verify",
+    "seo:release:production": "node production.mjs release",
+    "deploy": "node production.mjs deploy",
+    "start": "node serve.mjs",
+    "seo:check": "node check-site.mjs",
+    "seo:release": "node build.mjs && node check-lighthouse.mjs",
+    "check:boards": "node check-boards.mjs",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "wrangler": "4.149.0"
+  }
 }
