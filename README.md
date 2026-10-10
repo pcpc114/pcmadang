@@ -70,6 +70,12 @@ Cloudflare Workers 설정은 `wrangler.jsonc`입니다. 정적 파일 폴더는 
 
 GitHub Actions는 빌드·테스트·정적 SEO 검사를 수행합니다. 이 워크플로의 성공은 공개 배포나 Lighthouse 100점 완료를 의미하지 않습니다. Cloudflare 계정 연결, pcmadang.com의 DNS/인증서 설정, Search Console 소유 확인은 별도의 실제 계정 단계입니다. 서버에서 반환한 DNS 값과 검색엔진 소유 확인 토큰을 사용하며 임의로 만들지 않습니다.
 
+### 외부 주소 없는 검수용 파일 업로드
+
+`wrangler.review.jsonc`는 운영 Worker와 별개인 `pcmadang-review`에 운영 파일을 업로드하는 설정입니다. `workers.dev`와 버전 미리보기 주소가 꺼져 있고 도메인·라우팅이 없는 것을 Cloudflare 관리 화면에서 확인한 후, `node node_modules/wrangler/bin/wrangler.js versions upload --config wrangler.review.jsonc`로 미배포 버전을 올립니다. 이 작업은 브라우저 검수 URL을 만들거나 `pcmadang.com`에서 사이트를 공개하지 않습니다. `versions upload`는 원격 URL 설정을 변경하지 않으므로, 설정 파일만 보고 비공개라고 가정하면 안 됩니다.
+
+신규 Worker에는 `versions upload`를 바로 사용할 수 없어, 최초 1회 사이트 파일을 포함하지 않는 `wrangler.review-bootstrap.jsonc`와 `review-bootstrap.mjs`로 검수 공간을 생성했습니다. Bootstrap은 503 텍스트 응답만 반환합니다. 실제 사이트는 활성 배포로 전환하지 않은 별도 버전으로 저장합니다. 운영 배포에는 기존 `npm run deploy`와 Lighthouse 증거 검사를 그대로 사용합니다.
+
 공개 시에는 실제 예시 콘텐츠를 계속 구분하며, 슬롯 이미지·데모의 공개 사용 조건도 확인해야 합니다. 이번 설정 파일 추가만으로 사이트가 인터넷에 새로 공개되지는 않습니다.
 
 - `SITE_ORIGIN`: 경로 없는 실제 서비스 주소. canonical, OG URL, JSON-LD, sitemap에 함께 적용됩니다.

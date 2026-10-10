@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "pcmadang-review",
+  "account_id": "899b6b22603e0db28a31d072838c321d",
+  "main": "./review-bootstrap.mjs",
+  "compatibility_date": "2026-10-10",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": []
+}

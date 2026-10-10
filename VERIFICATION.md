@@ -1,5 +1,13 @@
 # 로컬 검증 결과
 
+## Cloudflare 검수용 파일 업로드 (2026-10-10)
+
+- 사용자 요청에 따라 운영 빌드를 다시 생성했습니다. 737페이지 / 검색 허용 704페이지의 정적 검사를 통과했습니다. 실제 Lighthouse 점수는 미측정입니다.
+- 운영 Worker와 분리한 `pcmadang-review`를 생성했습니다. 최초 배포에는 사이트가 아닌 503 응답 bootstrap만 포함했습니다. 관리 화면에서 프로덕션 URL·프리뷰 URL 스위치가 모두 꺼져 있고 맞춤 도메인/라우팅이 없음을 확인했습니다.
+- `wrangler versions upload --config wrangler.review.jsonc`가 성공했습니다. 정적 파일 1,420개를 업로드했고 1개는 이미 존재한다고 보고했습니다. 저장된 사이트 버전은 `85350b2a-f0c2-4c03-9e4d-e9e531abb1dc`이며, Cloudflare `versions view`로 버전과 정적 자산 설정을 다시 확인했습니다.
+- `deployments status`에서 현재 활성 버전은 bootstrap `dd51797a-d707-40bc-9e59-1b17178e0b7d` (100%)로 유지됨을 확인했습니다. 실제 사이트 버전으로 전환하는 `versions deploy`나 도메인을 연결하는 `triggers deploy`는 실행하지 않았습니다.
+- 이는 비공개 파일 업로드 완료이며 브라우저 검수, SEO 100점, 정식 공개 또는 Google 색인 완료가 아닙니다. 메인 배포의 Lighthouse 증거 검사를 변경하거나 우회하지 않았습니다.
+
 ## pcmadang.com 네임서버 활성화 (2026-10-10)
 
 - 사용자가 등록 기관에서 네임서버를 변경했다고 알린 뒤, Cloudflare의 변경 확인 절차를 완료했습니다. 대시보드에서 `pcmadang.com`이 Cloudflare로 보호되는 활성 상태임을 확인했습니다.

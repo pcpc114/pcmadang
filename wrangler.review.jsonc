@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "pcmadang-review",
+  "account_id": "899b6b22603e0db28a31d072838c321d",
+  "compatibility_date": "2026-10-10",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [],
+  "assets": {
+    "directory": "./dist-production",
+    "html_handling": "force-trailing-slash",
+    "not_found_handling": "none"
+  }
+}
