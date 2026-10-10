@@ -1,6 +1,6 @@
 # 성인PC마당
 
-성인PC 업주를 위한 점포 양도·양수, PC·집기 중고장터 및 커뮤니티 로컬 시안.
+성인PC 업주를 위한 점포 양도·양수, PC·집기 중고장터 및 커뮤니티 정적 사이트.
 매물과 회원 게시글은 예시이며, 관심 목록·초안·댓글은 브라우저에만 저장됩니다.
 
 ## 실행
@@ -50,33 +50,39 @@ Node.js 22 이상에서 `npm start`를 실행하면 사용 가능한 포트가 �
 
 `slot-data.json`의 `demoUrl`을 클릭 시에만 iframe으로 불러옵니다. 허용된 무료 데모 호스트·경로만 실행하고 임베드가 표시되지 않으면 새 창으로 여는 링크와 다시 불러오기를 제공합니다. Big Bass Crash·Spaceman·High Flyer는 공식 HTML에서 확인한 정확한 URL만 별도로 허용합니다. 서버 상태와 제공사의 임베드 정책에 따라 동작은 달라질 수 있으며, 전체 게임을 브라우저에서 재생 시험한 상태는 아닙니다. 새 게임은 같은 데이터 형식으로 추가하며 빌드 시 주소·메타데이터·링크를 함께 검사합니다.
 
-출처: [참고 목록](https://xn--hy1b122ayhbp54a.com/slot), [Pragmatic Play 공식 5 Lions Dance](https://www.pragmaticplay.com/en/games/5-lions-dance/). 이미지 출처는 `assets/slots/SOURCES.md`에 있습니다. 이 작업은 로컬 연동이며 공급사 계약이나 상용 이용 허가를 획득한 것은 아닙니다. [공식 이용약관](https://www.pragmaticplay.com/en/terms-of-use/)의 사용 조건은 공개 운영 전 별도 확인 대상입니다.
+출처: [참고 목록](https://xn--hy1b122ayhbp54a.com/slot), [Pragmatic Play 공식 5 Lions Dance](https://www.pragmaticplay.com/en/games/5-lions-dance/). 이미지 출처는 `assets/slots/SOURCES.md`에 있습니다. 데모 주소 연결이나 사이트 배포가 공급사 계약·상용 이용 허가를 획득했다는 뜻은 아닙니다. [공식 이용약관](https://www.pragmaticplay.com/en/terms-of-use/)에 따른 공개 사용 조건 확인은 별도 미완료 항목입니다.
 
 기존 매입 조건/구인 글 작성 안내는 `/buy-guide/`, `/jobs-guide/`에 유지합니다. `/buy/`와 `/jobs/`는 이제 게시판 분류 페이지입니다.
 
 ## SEO 설정
 
-### pcmadang.com 배포 준비
+### pcmadang.com 배포 상태 — 2026-10-10
 
-대표 운영 주소는 `https://pcmadang.com`입니다. 사용자는 도메인을 오렌지에서 구매했으며 GitHub에 코드를 보관하고, 우선 검색 노출용 정적 사이트를 배포하는 단계입니다. 비회원 글쓰기 서버는 별도 후속 작업이며 지금 배포 설정이 게시글 저장 기능을 제공하지는 않습니다. 기존 `.openai/hosting.json`은 이전 Sites 연결 이력으로 보존하며 이번 GitHub/Cloudflare 배포 설정과 구분합니다.
+대표 운영 주소는 `https://pcmadang.com`입니다. 사용자는 도메인을 오렌지에서 구매했고 GitHub에 코드를 보관합니다. 2026-10-10 사용자가 기존 홈페이지·도메인 이메일을 사용하지 않는다고 확인하고, 먼저 공개한 뒤 실제 주소에서 SEO를 검사·수정하는 순서를 승인했습니다. 운영 정적 빌드를 Cloudflare `pcmadang` Worker에 배포하고 `pcmadang.com/*` 경로에 연결했습니다. 비회원 글쓰기 서버는 별도 후속 작업이며 이번 정적 배포가 공동 게시글 저장 기능을 제공하지는 않습니다. 기존 `.openai/hosting.json`은 이전 Sites 연결 이력으로 보존하며 이번 GitHub/Cloudflare 배포와 구분합니다.
+
+활성 버전은 `5790cf4e-1971-4e1b-a347-716e94e9ea0b`이며 트래픽 100%가 배정되었습니다. 배포 ID는 `0205bac4-7c0f-4156-a985-ada83bb942a0`, 생성 시각은 `2026-10-10T13:58:23.897Z`입니다. 이 배포 상태와 실제 방문자의 HTTPS 접속·SEO 검사 완료는 구분합니다.
 
 - `npm run build:production`: `dist-production`에 운영 파일 생성, `artifacts/seo-production`에 별도 검증 manifest 생성. localhost의 `dist`는 바꾸지 않습니다.
 - `npm run seo:check:production`: 운영 파일의 정적 SEO 검사. 실제 Lighthouse 점수를 뜻하지 않습니다.
 - `npm run seo:verify:production`: 운영 빌드의 실제 Lighthouse 증거 확인. 증거가 없으면 PENDING으로 실패합니다.
 - `npm run seo:release:production`: 운영 재빌드 후 Lighthouse 증거까지 확인합니다.
-- `npm run deploy`: 운영 빌드와 Lighthouse 증거 검사가 모두 통과한 경우에만 Wrangler 배포를 실행합니다. 직접 Wrangler를 호출해 필수 검사를 생략하지 않습니다.
+- `npm run deploy`: 일반 배포에서는 운영 빌드와 Lighthouse 증거 검사가 모두 통과한 경우에만 Wrangler 배포를 실행합니다. 이번 최초 공개는 `AGENTS.md`에 기록한 사용자 승인 범위에서 정적 검사 후 배포하고 실제 주소를 검사하는 순서로 진행했습니다. 이 최초 공개 예외를 이후 일반 배포의 검사 생략 근거로 사용하지 않습니다.
 
-Cloudflare Workers 설정은 `wrangler.jsonc`입니다. 정적 파일 폴더는 `dist-production`, Worker 이름은 `pcmadang`입니다. `workers.dev`와 버전별 미리보기 URL은 비활성화했습니다. 2026-10-10 계정과 Cloudflare 도메인 활성화를 확인하여 계정 ID 및 `pcmadang.com` Custom Domain을 배포 설정에 명시했습니다. 이 설정 파일만으로 Worker나 DNS가 변경되지는 않습니다. 실제 배포 시 기존 루트 DNS를 Worker로 연결하므로, 기존 홈페이지·메일 사용 여부를 확인해야 합니다. `www` 리디렉션은 아직 설정하지 않았습니다. 파일이 없는 경로는 404로 응답하며 정적 페이지는 끝 슬래시 주소를 사용합니다. Cloudflare Git 연동 시 저장소의 이 파일과 package.json이 있는 폴더를 루트로 선택합니다. 빌드 명령은 `npm run build:production`, 배포 명령은 `npm run deploy`입니다. 원본 Lighthouse 보고서와 evidence.json을 검증 환경에 공급하기 전에는 배포 명령이 통과하지 않습니다.
+Cloudflare Workers 설정은 `wrangler.jsonc`입니다. 정적 파일 폴더는 `dist-production`, Worker 이름은 `pcmadang`입니다. `workers.dev`와 버전별 미리보기 URL은 비활성화했습니다. 기존 A 레코드 때문에 Custom Domain 연결이 충돌하여, 레코드를 삭제하지 않고 Worker route `pcmadang.com/*`를 연결했습니다. 원본 A 값 `82.221.143.1`은 프록시된 상태로 유지됩니다. Cloudflare 화면에서 루트 및 `*.pcmadang.com`의 Universal SSL 활성화와 Always Use HTTPS 활성화를 확인했습니다. `https://www.pcmadang.com/*`를 `https://pcmadang.com/${1}`로 보내는 301 규칙도 활성화했으며 경로와 쿼리 문자열을 유지합니다. 파일이 없는 경로는 404, 정적 페이지는 끝 슬래시 주소를 사용하도록 설정했으며 실제 응답 검증은 아래 제한 사항과 구분합니다. Cloudflare Git 연동 시 저장소의 이 파일과 package.json이 있는 폴더를 루트로 선택합니다. 빌드 명령은 `npm run build:production`, 일반 배포 명령은 `npm run deploy`입니다. 원본 Lighthouse 보고서와 evidence.json을 검증 환경에 공급하기 전에는 일반 배포 명령이 통과하지 않습니다.
 
-GitHub Actions는 빌드·테스트·정적 SEO 검사를 수행합니다. 이 워크플로의 성공은 공개 배포나 Lighthouse 100점 완료를 의미하지 않습니다. Cloudflare 계정 연결, pcmadang.com의 DNS/인증서 설정, Search Console 소유 확인은 별도의 실제 계정 단계입니다. 서버에서 반환한 DNS 값과 검색엔진 소유 확인 토큰을 사용하며 임의로 만들지 않습니다.
+GitHub Actions는 빌드·테스트·정적 SEO 검사를 수행합니다. 이 워크플로의 성공은 Lighthouse 100점 완료를 의미하지 않습니다. Google 및 Cloudflare의 HTTPS DNS API에서 네임서버 `braelyn.ns.cloudflare.com`, `derek.ns.cloudflare.com`과 프록시 A 주소 `172.67.222.183`, `104.21.25.52`를 확인했습니다. 작업 PC의 기본 DNS는 캐시 초기화 뒤에도 이전 icedns 응답을 반환했고, 이 경로의 HTTPS 요청은 `ERR_TLS_CERT_ALTNAME_INVALID`로 실패했습니다. 인증서 검사를 우회하지 않았으므로 실제 운영 HTML·자산 응답의 빌드 일치 여부는 아직 확인하지 못했습니다.
 
-### 외부 주소 없는 검수용 파일 업로드
+Google 공식 PageSpeed API의 모바일 SEO 요청은 HTTP 429 `RESOURCE_EXHAUSTED`(인증 없는 API의 일일 쿼리 한도 0)로 실패했습니다. 이후 [PageSpeed 웹 검사](https://pagespeed.web.dev/analysis/https-pcmadang-com/25x5lklsom?form_factor=mobile)는 실제 공개 홈에 접속하여 2026-10-10 23:05:19 한국 시간에 Lighthouse 13.5.0 모바일 **성능 97 / 접근성 100 / 권장사항 100 / SEO 100**을 기록했습니다. 같은 보고서의 [데스크톱 검사](https://pagespeed.web.dev/analysis/https-pcmadang-com/25x5lklsom?form_factor=desktop)는 네 항목 모두 **100**입니다. 화면·텍스트 증거는 `artifacts/deployment/pagespeed-home-mobile.jpg`, `pagespeed-home-desktop.jpg`와 같은 이름의 `.txt`입니다.
+
+`https://www.pcmadang.com/stores/`를 제출한 [매물 목록 모바일 검사](https://pagespeed.web.dev/analysis/https-www-pcmadang-com-stores/flpm5tt9zj?form_factor=mobile)도 2026-10-10 23:09:45 한국 시간에 **성능 97 / 접근성 100 / 권장사항 100 / SEO 100**을 기록했습니다. 증거는 `artifacts/deployment/pagespeed-stores-mobile.jpg`와 `.txt`입니다. 이 점수만으로 리디렉션 HTTP 상태·헤더까지 확인했다고 간주하지 않습니다. 실제 SEO 측정 범위는 홈과 매물 목록 두 페이지이며 원본 Lighthouse JSON과 전체 704개 검색 허용 페이지의 100점 증거 묶음은 아직 없습니다. 나머지 페이지의 공개 응답·SEO 검증 및 Google Search Console 소유 확인·사이트맵 제출은 남아 있습니다. 근거와 원본 API 오류는 `artifacts/deployment/`와 `VERIFICATION.md`에 기록했습니다.
+
+### 이전 단계: 외부 주소 없는 검수용 파일 업로드
 
 `wrangler.review.jsonc`는 운영 Worker와 별개인 `pcmadang-review`에 운영 파일을 업로드하는 설정입니다. `workers.dev`와 버전 미리보기 주소가 꺼져 있고 도메인·라우팅이 없는 것을 Cloudflare 관리 화면에서 확인한 후, `node node_modules/wrangler/bin/wrangler.js versions upload --config wrangler.review.jsonc`로 미배포 버전을 올립니다. 이 작업은 브라우저 검수 URL을 만들거나 `pcmadang.com`에서 사이트를 공개하지 않습니다. `versions upload`는 원격 URL 설정을 변경하지 않으므로, 설정 파일만 보고 비공개라고 가정하면 안 됩니다.
 
-신규 Worker에는 `versions upload`를 바로 사용할 수 없어, 최초 1회 사이트 파일을 포함하지 않는 `wrangler.review-bootstrap.jsonc`와 `review-bootstrap.mjs`로 검수 공간을 생성했습니다. Bootstrap은 503 텍스트 응답만 반환합니다. 실제 사이트는 활성 배포로 전환하지 않은 별도 버전으로 저장합니다. 운영 배포에는 기존 `npm run deploy`와 Lighthouse 증거 검사를 그대로 사용합니다.
+신규 Worker에는 `versions upload`를 바로 사용할 수 없어, 최초 1회 사이트 파일을 포함하지 않는 `wrangler.review-bootstrap.jsonc`와 `review-bootstrap.mjs`로 검수 공간을 생성했습니다. Bootstrap은 503 텍스트 응답만 반환합니다. 검수 Worker의 실제 사이트는 활성 배포로 전환하지 않은 별도 버전으로 저장했습니다. 이후 운영 Worker를 별도로 공개한 상태는 위의 배포 현황을 따릅니다.
 
-공개 시에는 실제 예시 콘텐츠를 계속 구분하며, 슬롯 이미지·데모의 공개 사용 조건도 확인해야 합니다. 이번 설정 파일 추가만으로 사이트가 인터넷에 새로 공개되지는 않습니다.
+공개 사이트에서도 실제 콘텐츠와 예시 콘텐츠를 구분하며, 슬롯 이미지·데모의 공개 사용 조건 확인은 별도 미완료 항목입니다. 검수 파일 업로드 이력 자체는 공개 배포 증거가 아닙니다.
 
 - `SITE_ORIGIN`: 경로 없는 실제 서비스 주소. canonical, OG URL, JSON-LD, sitemap에 함께 적용됩니다.
 - localhost·127.0.0.1·[::1] 빌드는 예시 매물 상세·회원 글·미리보기 게시판까지 **로컬 템플릿 진단**을 기본 허용합니다. 예시 표시와 데이터는 유지하며 실제 공개 매물로 바꾸지 않습니다. 외부 검색엔진은 localhost에 접근할 수 없습니다.
@@ -87,7 +93,7 @@ GitHub Actions는 빌드·테스트·정적 SEO 검사를 수행합니다. 이 �
 - 키워드는 `keyword-plan.md`의 의도별 구조에 맞춰 제목·설명·본문·내부 링크에 배치합니다. 검색어 표기 차이는 내부 검색에서도 처리합니다.
 - 구조화 데이터는 WebSite, WebPage, BreadcrumbList만 사용합니다. 예시 매물에 실제 판매 제안·평점·리뷰 데이터를 만들지 않습니다.
 
-로컬 진단 점수는 실제 검색 노출이나 순위를 보장하지 않습니다. 공개 전 실제 도메인, 실제 데이터, 회원·게시판 저장 기능을 연결하고 해당 도메인을 네이버 서치어드바이저와 Google Search Console에서 확인해야 합니다.
+로컬 진단 점수는 실제 검색 노출이나 순위를 보장하지 않습니다. 현재는 정적 사이트 최초 공개 단계입니다. 실제 공동 게시판 운영에는 서버 저장 기능과 실제 데이터 연결이 별도로 필요하며, 검색엔진 관리에는 네이버 서치어드바이저와 Google Search Console의 소유 확인이 남아 있습니다.
 
 ## 새 페이지와 SEO 검증 절차
 
@@ -132,7 +138,7 @@ Lighthouse 증거의 기본 위치는 `artifacts/seo/lighthouse/evidence.json`�
 
 ## 현재 검증 범위
 
-사용자가 제공한 화면에서 `/listing/store-001/`의 수정 전 Lighthouse SEO는 **66점**입니다. 해당 예시 상세의 `noindex`를 코드에서 확인하고 로컬 템플릿 진단 정책을 적용했습니다. 지역·업종을 담은 상세 메타데이터와 실제 분류에 맞는 탐색 경로도 반영했습니다. 변경 후 점수는 아직 미측정이며, 실제 검사 결과는 `VERIFICATION.md` 맨 위에 기록합니다. 브라우저 보안 정책으로 로컬 페이지 열기가 차단되어 새 Lighthouse 측정을 완료하지 못했습니다. 이전 홈·목록의 100점 기록이나 정적 검사 통과를 현재 전체 페이지의 100점으로 간주하지 않습니다.
+사용자가 제공한 화면에서 `/listing/store-001/`의 수정 전 Lighthouse SEO는 **66점**입니다. 해당 예시 상세의 `noindex`를 코드에서 확인하고 로컬 템플릿 진단 정책을 적용했습니다. 지역·업종을 담은 상세 메타데이터와 실제 분류에 맞는 탐색 경로도 반영했습니다. 공개 빌드에서는 이 예시 매물을 계속 검색 제외합니다. 현재 공개 홈과 매물 목록은 PageSpeed 웹 검사에서 SEO 100점을 확인했으나 나머지 페이지의 실제 점수와 전체 증거 묶음은 미완료입니다. 최신 검증 결과와 접속·측정 제한은 `VERIFICATION.md` 맨 위에 기록합니다. 두 페이지의 100점이나 정적 검사 통과를 현재 전체 페이지의 100점으로 간주하지 않습니다.
 
 수집·조립: `node import-slot-catalogue.mjs` → `node import-slot-images.mjs` → `node restore-slot-demos.mjs` → `node assemble-slot-data.mjs` → `npm run build`. 참고 API에 빠진 데모 주소는 제작사의 공식 사이트맵에 있는 정확한 게임 페이지의 iframe에서 복구하고 `artifacts/slots/official-demos.json`에 원문 주소와 출처를 기록합니다. 수집 결과와 출처는 `artifacts/slots/`, 실행·이미지 정보는 `slot-data.json`에 기록합니다. 수집 스크립트는 외부 공개 데이터 접근이 필요하며 기존 상세·이미지 캐시를 재사용합니다.
 

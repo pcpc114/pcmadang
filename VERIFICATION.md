@@ -1,6 +1,22 @@
-# 로컬 검증 결과
+# 배포 및 검증 결과
 
-## Cloudflare 검수용 파일 업로드 (2026-10-10)
+## 현재: pcmadang.com 최초 공개 및 검증 제한 (2026-10-10)
+
+- 사용자는 기존 홈페이지·도메인 이메일을 사용하지 않는다고 확인하고 새 사이트 연결을 승인했습니다. 또한 정적 검사를 통과한 사이트를 먼저 공개하고 실제 주소에서 SEO를 검사·수정하는 순서를 명시적으로 승인했습니다. 이 최초 공개 예외는 `AGENTS.md`에 기록했으며 이후 일반 배포의 전체 Lighthouse 증거 검사와 100점 목표는 유지합니다.
+- 운영 정적 빌드를 Cloudflare `pcmadang` Worker에 배포했습니다. 활성 버전은 `5790cf4e-1971-4e1b-a347-716e94e9ea0b`(100%), 배포 ID는 `0205bac4-7c0f-4156-a985-ada83bb942a0`, 생성 시각은 `2026-10-10T13:58:23.897Z`입니다.
+- 최초 Custom Domain 연결은 기존 A 레코드와 충돌했습니다. DNS를 삭제하지 않고 `wrangler triggers deploy`로 `pcmadang.com/*` Worker route를 연결했습니다. 기존 A 값 `82.221.143.1`은 Cloudflare 프록시 상태로 유지됩니다. 관리 화면에서 루트 및 `*.pcmadang.com`의 Universal SSL 활성화, Always Use HTTPS 활성화를 확인했습니다.
+- Cloudflare에서 `www` → 루트 301 리디렉션 규칙 `d7d4d621608b4cb9b1fb168e646262bf`를 활성화했습니다. 일치 주소 `https://www.pcmadang.com/*`, 대상 `https://pcmadang.com/${1}`, 쿼리 유지 활성화입니다. 설정 화면 증거는 `artifacts/deployment/cloudflare-www-redirect.jpg`이며, 설정 활성화와 실제 HTTP 응답 검증은 구분합니다.
+- 공개 DNS 확인 시각 `2026-10-10T14:04:13.059Z`: Google 및 Cloudflare HTTPS DNS API 모두 A `172.67.222.183`, `104.21.25.52`와 NS `braelyn.ns.cloudflare.com`, `derek.ns.cloudflare.com`을 반환했습니다. 원본은 `artifacts/deployment/live-doh.json`입니다.
+- 작업 PC 기본 DNS는 캐시 초기화 뒤에도 기존 `82.221.143.1`, `dns1.icedns.is`, `dns2.icedns.is`를 반환했습니다. 정상 인증서 검증을 사용하는 11개 HTTPS 요청은 모두 HTTP 응답 전에 `ERR_TLS_CERT_ALTNAME_INVALID`로 실패했습니다. 제공된 인증서의 DNS 이름은 `dns.icedns.is`였으며 `pcmadang.com`과 일치하지 않았습니다. `artifacts/deployment/live-check.json`에 실패를 기록했습니다. 인증서 우회나 직접 IP 강제 연결을 사용하지 않았으며, 실제 HTML·이미지·CSS의 배포 파일 해시 일치와 404·리디렉션 검증은 미완료입니다.
+- 1.1.1.1 및 8.8.8.8 직접 DNS 질의는 타임아웃이었습니다(`live-dns.json`). 이 실패를 공개 DNS 미전파의 증거로 해석하지 않습니다. 위 HTTPS DNS 결과는 별도로 정상 확인했습니다.
+- Google 공식 PageSpeed API 모바일 SEO 요청은 `2026-10-10T14:04:36.929Z`에 HTTP 429 `RESOURCE_EXHAUSTED` / `RATE_LIMIT_EXCEEDED`를 반환했습니다. 응답은 인증 없는 API 소비 프로젝트의 일일 쿼리 한도가 0이라고 명시했습니다. 원본은 `pagespeed-home-response.json`, 요약은 `pagespeed-home-status.json`이며 실제 Lighthouse 보고서는 생성하지 않았습니다.
+- 이후 [Google PageSpeed 웹 검사](https://pagespeed.web.dev/analysis/https-pcmadang-com/25x5lklsom?form_factor=mobile)는 실제 공개 홈의 정상 외부 접속과 Lighthouse 13.5.0 모바일 측정에 성공했습니다. 측정 시각은 **2026-10-10 23:05:19 한국 시간**, 결과는 **성능 97 / 접근성 100 / 권장사항 100 / SEO 100**입니다. 화면 증거는 `artifacts/deployment/pagespeed-home-mobile.jpg`입니다. API 쿼터 오류 및 로컬 기본 DNS 경로의 실패와 별개인 외부 측정 결과입니다.
+- 같은 보고서의 [데스크톱 검사](https://pagespeed.web.dev/analysis/https-pcmadang-com/25x5lklsom?form_factor=desktop)에서도 **성능 100 / 접근성 100 / 권장사항 100 / SEO 100**을 확인했습니다. `artifacts/deployment/pagespeed-home-desktop.jpg`, `pagespeed-home-desktop.txt` 및 모바일의 `pagespeed-home-mobile.txt`에 실제 화면·텍스트 증거를 보관했습니다. 데스크톱과 모바일 모두 공개 홈 한 페이지의 검사입니다.
+- 추가로 `https://www.pcmadang.com/stores/`를 제출한 [매물 목록 모바일 검사](https://pagespeed.web.dev/analysis/https-www-pcmadang-com-stores/flpm5tt9zj?form_factor=mobile)가 **2026-10-10 23:09:45 한국 시간**에 **성능 97 / 접근성 100 / 권장사항 100 / SEO 100**을 기록했습니다. 실제 화면·텍스트 증거는 `artifacts/deployment/pagespeed-stores-mobile.jpg`, `pagespeed-stores-mobile.txt`입니다. 이 보고서만으로 실제 301 응답이나 리디렉션 헤더를 확인했다고 주장하지 않습니다.
+- 현재 실제 SEO 측정은 **홈과 매물 목록 두 페이지**에 한합니다. 원본 Lighthouse JSON은 내려받지 않았으며 전체 704개 검색 허용 페이지의 원본 보고서·파일 해시 증거 묶음은 미완료입니다. 두 페이지 100점이나 정적 검사 통과를 전체 페이지 100점으로 표현하지 않습니다. 나머지 공개 URL·자산·리디렉션의 실제 응답 검증, 실제 SEO 측정·수정, Google Search Console 소유 확인·사이트맵 제출이 남아 있습니다. 공개 주소는 외부 검사에서 접속되지만 현재 작업 PC에서는 이전 DNS 경로로 인해 접속이 지연되는 상태입니다.
+- 이하 기록은 각 시점의 이력이며, 이전의 “미배포” 및 “로컬 전용” 상태는 이 최초 공개 상태로 갱신되었습니다. 예시 글·매물과 브라우저 임시 저장 기능이라는 제품 범위는 유지됩니다.
+
+## 이전: Cloudflare 검수용 파일 업로드 (2026-10-10)
 
 - 사용자 요청에 따라 운영 빌드를 다시 생성했습니다. 737페이지 / 검색 허용 704페이지의 정적 검사를 통과했습니다. 실제 Lighthouse 점수는 미측정입니다.
 - 운영 Worker와 분리한 `pcmadang-review`를 생성했습니다. 최초 배포에는 사이트가 아닌 503 응답 bootstrap만 포함했습니다. 관리 화면에서 프로덕션 URL·프리뷰 URL 스위치가 모두 꺼져 있고 맞춤 도메인/라우팅이 없음을 확인했습니다.
@@ -8,14 +24,14 @@
 - `deployments status`에서 현재 활성 버전은 bootstrap `dd51797a-d707-40bc-9e59-1b17178e0b7d` (100%)로 유지됨을 확인했습니다. 실제 사이트 버전으로 전환하는 `versions deploy`나 도메인을 연결하는 `triggers deploy`는 실행하지 않았습니다.
 - 이는 비공개 파일 업로드 완료이며 브라우저 검수, SEO 100점, 정식 공개 또는 Google 색인 완료가 아닙니다. 메인 배포의 Lighthouse 증거 검사를 변경하거나 우회하지 않았습니다.
 
-## pcmadang.com 네임서버 활성화 (2026-10-10)
+## 이전: pcmadang.com 네임서버 활성화 (2026-10-10)
 
 - 사용자가 등록 기관에서 네임서버를 변경했다고 알린 뒤, Cloudflare의 변경 확인 절차를 완료했습니다. 대시보드에서 `pcmadang.com`이 Cloudflare로 보호되는 활성 상태임을 확인했습니다.
 - Google 및 Cloudflare 공용 DNS 모두 `braelyn.ns.cloudflare.com`, `derek.ns.cloudflare.com`을 반환했습니다. OS 기본 조회의 이전 네임서버 응답은 공용 조회 결과와 달랐습니다.
 - 확인한 계정 ID와 루트 Custom Domain을 `wrangler.jsonc`에 명시했습니다. Wrangler `deploy --dry-run` 설정 검증을 통과했으며 실제 Worker 배포·도메인 연결·기존 DNS 프록시 수정은 하지 않았습니다. 샌드박스 밖 기본 로그 경로 쓰기 경고는 별도로 발생했습니다.
 - GitHub 소스 저장소는 비공개 `godqhr12312-maker/pcmadang`입니다. 네임서버 활성화는 사이트 배포나 SEO 점수 확인을 뜻하지 않습니다. 기존 홈페이지·메일 사용 여부, 실제 운영 빌드 Lighthouse 보고서, `www` 리디렉션, 공개 배포와 Search Console 등록은 남아 있습니다.
 
-## pcmadang.com 운영 빌드 준비 (2026-10-10)
+## 이전: pcmadang.com 운영 빌드 준비 (2026-10-10)
 
 - GitHub 코드 보관과 Cloudflare 호스팅으로 검색 노출용 정적 배포를 준비합니다. 대표 주소는 구매한 `https://pcmadang.com`입니다. 비회원 게시글 저장·로그인은 이번 단계에서 구현한 기능이 아닙니다.
 - `production.mjs`가 운영 주소·색인 정책과 `dist-production`, `artifacts/seo-production` 경로를 고정합니다. 로컬 미리보기 출력과 검증 manifest의 SHA-256은 운영 빌드 전후 동일함을 확인했습니다.
@@ -26,7 +42,7 @@
 
 확인일: 2026-10-09 (한국 시간). 대상: `http://localhost:54633/`.
 
-## 현재: 무료슬롯 전체 666개 확장 (2026-10-09)
+## 이전: 무료슬롯 전체 666개 확장 (2026-10-09)
 
 - 참고 화면의 공개 목록 API를 승인된 읽기 작업으로 수집했습니다. 서버의 최대 응답은 48개이며 14개 응답에서 고유 게임 666개를 확인했습니다. `artifacts/slots/catalogue.json`에 원본 목록을 보관했습니다.
 - 공식 원본 이미지 666개를 모두 로컬에 저장했습니다. 기존 24개 재사용·642개 다운로드, 실패·404·대체 이미지 0개, 총 72,985,559바이트입니다. PNG 형식·파일 대응을 확인했고 출처는 `assets/slots/SOURCES.md`에 기록했습니다.
@@ -130,7 +146,7 @@
 
 ## 공개 서비스에 남아 있는 범위
 
-현재 거래·회원 게시글은 예시이며 작성 기능은 브라우저 임시 저장입니다. 실제 공동 게시판이나 판매자 문의 전송은 연결하지 않았습니다. 공개 배포·검색엔진 등록은 이번 로컬 작업에 포함하지 않았습니다.
+현재 거래·회원 게시글은 예시이며 작성 기능은 브라우저 임시 저장입니다. 실제 공동 게시판이나 판매자 문의 전송은 연결하지 않았습니다. 2026-10-09의 로컬 작업 이후 2026-10-10 사용자 승인으로 공개 배포했으며, 검색엔진 소유 확인·등록은 미완료입니다. 최신 상태는 이 문서 맨 위를 따릅니다.
 
 키워드 구성의 근거: [Google SEO 기본 가이드](https://developers.google.com/search/docs/fundamentals/seo-starter-guide?hl=ko), [네이버 콘텐츠 작성 권장 사항](https://searchadvisor.naver.com/guide/content-basic).
 
